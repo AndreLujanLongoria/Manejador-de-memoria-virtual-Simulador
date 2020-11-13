@@ -4,6 +4,9 @@ namespace Manejador_de_memoria_virtual__Simulador_
 {
     class Program
     {
+
+        int counter = 0;
+
         static void Main(string[] args)
         {
             Console.WriteLine("Proyecto Final Sistemas Operativos");
