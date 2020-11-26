@@ -10,7 +10,8 @@ namespace Manejador_de_memoria_virtual__Simulador_
         /// <param name="p">Int con el numero de proceso</param>
         public static void procesarP(int n, int p)
         {
-            //TODO
+            // TODO
+            Console.WriteLine(Globales.memoria.memoriaReal.Count);
 
         }
 

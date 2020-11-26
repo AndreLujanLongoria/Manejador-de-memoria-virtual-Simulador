@@ -7,46 +7,62 @@ namespace Manejador_de_memoria_virtual__Simulador_
     {        
         static void Main(string[] args)
         {
-            obtenerComandos();
-            procesar();
+            // Si se obtuvo los comandos correctamente del archivo, procesarlos
+            if(obtenerComandos()) 
+            {
+                procesar(Estrategia.FIFO);
+                //procesar(Estrategia.LRU);
+            }
 
-            Console.ReadKey(); //Espera a que apretemos una tecla -----Para que el resultado salga claro----
+            Console.Read(); //Espera a que apretemos una tecla -----Para que el resultado salga claro----
         }
 
-        static void procesar()
+        static void procesar(Estrategia estra)
         {
+            Globales.estrategia = estra;
+
             int numProceso = 1;
             // Proceso princial que ejecuta comando por comando
+            string[] elementos;
             foreach(string comando in Globales.comandos)
             {
                 switch(comando[0])
                 {
                     // COMANDO PROCESAR - Cargar a memoria un proceso
                     case 'P':
-                        string[] elementos = comando.Split(' ');
+                        elementos = comando.Split();
                         Console.WriteLine(elementos[0] + ' ' + elementos[1] + ' ' + elementos[2]);
-
                         Comandos.procesarP(int.Parse(elementos[1]), int.Parse(elementos[2]));
                         break;
 
                     // COMANDO ACCEDER - Acceder o modificar un proceso en memoria
                     case 'A':
+                        // elementos = comando.Split();
+                        // Console.WriteLine(elementos[0] + ' ' + elementos[1] + ' ' + elementos[2] + elementos[3]);
+                        // Comandos.procesarA(int.Parse(elementos[1]), int.Parse(elementos[2]), int.Parse(elementos[3]));
                         break;
 
                     // COMANDO LIBERAR - Liberar un proceso en memoria
                     case 'L':
+                        // elementos = comando.Split(' ');
+                        // Console.WriteLine(elementos[0] + ' ' + elementos[1]);
+                        // Comandos.procesarL(int.Parse(elementos[1]));
                         break;
 
                     // COMANDO COMENTARIO - Solo se despliega el comentario
-                    case 'C':
+                    case 'C':                        
+                        // Console.WriteLine(comando);
                         break;
 
                     // COMANDO FINALIZAR - Se finaliza una seccion de los comandos (Se despliegan resultado de analiticas)
                     case 'F':
+                        // Console.WriteLine(comando);
+                        // Comandos.procesarF();
                         break;
 
                     // COMANDO TERMINAR - Se finaliza el programa
                     case 'E':
+                        // Console.WriteLine(comando);
                         break;
                     
                     // EL COMANDO ES ERRONEO
@@ -59,7 +75,7 @@ namespace Manejador_de_memoria_virtual__Simulador_
             }
         }
 
-        static void obtenerComandos()
+        static bool obtenerComandos()
         {
             try
             {
@@ -69,7 +85,8 @@ namespace Manejador_de_memoria_virtual__Simulador_
                 //Console.WriteLine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase));
 
                 // Obtener lista de comandos del archivo txt
-                StreamReader archivo = new StreamReader(@"c:/../../../../ArchivoTrabajo.txt");
+                // StreamReader archivo = new StreamReader(@"c:/../../../../ArchivoTrabajo.txt");
+                StreamReader archivo = new StreamReader(Directory.GetCurrentDirectory() + "/ArchivoTrabajo.txt");
 
                 // Verificar que el archivo no esta vacio
                 if (archivo.Peek() == -1)
@@ -84,10 +101,12 @@ namespace Manejador_de_memoria_virtual__Simulador_
                 }
 
                 archivo.Close();
+                return true;
             }
             catch // Error cargando archivo
             {
                 Console.WriteLine("ERROR: El archivo esta vacio o no existe.");
+                return false;
             }
         }
     }
