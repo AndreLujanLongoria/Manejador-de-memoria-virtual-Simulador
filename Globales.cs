@@ -10,6 +10,9 @@ namespace Manejador_de_memoria_virtual__Simulador_
 
     public static class Globales
     {
+        // Constantes
+        public const int TAM_PAGINA = 16;
+
         public static List<string> comandos = new List<string>();
         public static Memoria memoria = new Memoria();
         public static double timestamp = 0.0;
