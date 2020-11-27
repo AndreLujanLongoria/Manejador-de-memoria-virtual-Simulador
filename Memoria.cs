@@ -126,7 +126,7 @@ namespace Manejador_de_memoria_virtual__Simulador_ {
                     Proceso procesoSwapOut = Globales.procesos[idProcesoSwapOut]; // Obtener los datos del proceso
                     if (numPaginasNecesarias <= 0) break;
                     if(pagina.idProceso == idProcesoSwapOut) {
-                        SwapIn(procesoSwapOut, ref posicionSwap); // Enviar el proceso que se ingresara a la memoria swap
+                        SwapOutProceso(procesoSwapOut, ref posicionSwap); // Enviar el proceso que se ingresara a la memoria swap
                         pagina.idProceso = proceso.id;
                         numPaginasNecesarias--;
                         marcosAsignados.Add(pagina.marco);
@@ -155,7 +155,7 @@ namespace Manejador_de_memoria_virtual__Simulador_ {
             Console.WriteLine($"Se asignaron los marcos de página [{arregloMarcos.Remove(arregloMarcos.Length - 1)}] al proceso #{proceso.id}");
         }
 
-        public void SwapIn(Proceso proceso, ref int posicionSwap) {
+        public void SwapOutProceso(Proceso proceso, ref int posicionSwap) {
             foreach(Pagina pagina in Globales.memoria.memoriaSwap) {                
                 // Si la pagina esta disponble, asignar
                 if (this.paginasLibresSwap <= 0) {
