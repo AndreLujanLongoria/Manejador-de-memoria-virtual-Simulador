@@ -6,4 +6,7 @@
     <RootNamespace>Manejador_de_memoria_virtual__Simulador_</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.LiveShare" Version="1.1.57" />
+  </ItemGroup>
 </Project>

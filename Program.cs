@@ -85,8 +85,8 @@ namespace Manejador_de_memoria_virtual__Simulador_
                 //Console.WriteLine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase));
 
                 // Obtener lista de comandos del archivo txt
-                // StreamReader archivo = new StreamReader(@"c:/../../../../ArchivoTrabajo.txt");
-                StreamReader archivo = new StreamReader(Directory.GetCurrentDirectory() + "/ArchivoTrabajo.txt");
+                StreamReader archivo = new StreamReader(@"c:/../ArchivoTrabajo.txt");
+                //StreamReader archivo = new StreamReader(Directory.GetCurrentDirectory() + "/ArchivoTrabajo.txt");
 
                 // Verificar que el archivo no esta vacio
                 if (archivo.Peek() == -1)

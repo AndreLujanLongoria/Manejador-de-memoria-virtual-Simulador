@@ -12,6 +12,10 @@ namespace Manejador_de_memoria_virtual__Simulador_
         {
             // Validacion
             if(n <= 0) {
+                Console.WriteLine("El proceso #" + p + " no entra en memoria.");
+                return;
+            } 
+            if (n > 2048) {
                 Console.WriteLine("El proceso #" + p + " no cabe en memoria.");
                 return;
             }
@@ -21,7 +25,7 @@ namespace Manejador_de_memoria_virtual__Simulador_
             
             // Agregar nuevo proceso a la lista
             Proceso nuevoProceso = new Proceso(p, n, 0, Globales.timestamp, -1);
-            Globales.procesos.Add(nuevoProceso);
+            Globales.procesos.Add(nuevoProceso.id, nuevoProceso);
             
             // FIFO
             if(Globales.estrategia == Estrategia.FIFO) {
@@ -38,8 +42,7 @@ namespace Manejador_de_memoria_virtual__Simulador_
             }
             // Escenario 2: NO hay espacio en memoria
             else {
-                // TODO swapout
-                Globales.memoria.SwapOut(-1);
+                Globales.memoria.SwapOut(numPagNecesarias, nuevoProceso);
             }
 
         }
