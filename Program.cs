@@ -44,25 +44,27 @@ namespace Manejador_de_memoria_virtual__Simulador_
 
                     // COMANDO LIBERAR - Liberar un proceso en memoria
                     case 'L':
-                        // elementos = comando.Split(' ');
-                        // Console.WriteLine(elementos[0] + ' ' + elementos[1]);
-                        // Comandos.procesarL(int.Parse(elementos[1]));
+                        elementos = comando.Split(' ');
+                        Console.WriteLine(elementos[0] + ' ' + elementos[1]);
+                        Comandos.procesarL(int.Parse(elementos[1]));
                         break;
 
                     // COMANDO COMENTARIO - Solo se despliega el comentario
                     case 'C':                        
-                        // Console.WriteLine(comando);
+                        Console.WriteLine(comando);
                         break;
 
                     // COMANDO FINALIZAR - Se finaliza una seccion de los comandos (Se despliegan resultado de analiticas)
                     case 'F':
-                        // Console.WriteLine(comando);
-                        // Comandos.procesarF();
+                        Console.WriteLine(comando);
+                        Console.WriteLine("Fin. Reporte de salida: ");
+                        Comandos.procesarF();
                         break;
 
                     // COMANDO TERMINAR - Se finaliza el programa
                     case 'E':
-                        // Console.WriteLine(comando);
+                        Console.WriteLine(comando);
+                        // ProcesarE
                         break;
                     
                     // EL COMANDO ES ERRONEO

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace Manejador_de_memoria_virtual__Simulador_
 {
     public static class Comandos
@@ -30,6 +32,10 @@ namespace Manejador_de_memoria_virtual__Simulador_
             // FIFO
             if(Globales.estrategia == Estrategia.FIFO) {
                 Globales.filaProcesos.Enqueue(p);
+            } 
+            // LRU
+            else {
+                Globales.stackProcesos.Push(p);
             }
 
             // Dos escenarios: Hay espacio y no hay espacio en memoria
@@ -64,21 +70,48 @@ namespace Manejador_de_memoria_virtual__Simulador_
         /// <param name="p">Int con el numero de proceso</param>
         public static void procesarL(int p)
         {
-
+            Proceso proceso = Globales.procesos[p];
+            Globales.memoria.liberarProceso(proceso);
+            Globales.timestamp = Globales.timestamp + 0.1;
         }
+
 
         /// <summary>
         /// Funcion para procesar el comando F (Finalizar seccion)
         /// </summary>
         public static void procesarF()
         {
+            int contadorProcesos = 0;
+            double turnaroundTotal = 0.0;
+            double tiempo = 0.0;
+            
+            // Desplegar Turnaround Time por Proceso
+            Console.WriteLine("Turnaround Time: ");
+            foreach(KeyValuePair<int, Proceso> proceso in Globales.procesos) {
+                tiempo = proceso.Value.tiempoInicio - proceso.Value.tiempoFinal;
+                Console.WriteLine($"  P# {proceso.Key}: {tiempo}");
+                turnaroundTotal += tiempo;
+                contadorProcesos++;
+            }
+
+            // Desplegar Turnaround Promedio
+            Console.WriteLine($"Turnaround Promedio: {turnaroundTotal / contadorProcesos}");
+
+            // Desplegar Page Faults por Proceso
+            foreach(KeyValuePair<int, Proceso> proceso in Globales.procesos) {
+                Console.WriteLine($"  P# {proceso.Key}: {proceso.Value.numPageFaults}");
+            }
+
+            // Desplegar número total de operaciones de swap-out y swap-in
+            Console.WriteLine($" Número total de operaciones de swap-out y swap-in: {Globales.contadorSwaps}");
+
 
         }
 
         /// <summary>
         /// Funcion para procesar el comando E (Terminar)
         /// </summary>
-        public static void procesarE()
+        public static void procesarE() 
         {
 
         }
