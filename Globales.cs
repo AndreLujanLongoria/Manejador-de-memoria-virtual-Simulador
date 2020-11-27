@@ -11,6 +11,7 @@ namespace Manejador_de_memoria_virtual__Simulador_
     public static class Globales
     {
         // Constantes
+        public const int TAM_MEMORIA = 2048;
         public const int TAM_PAGINA = 16;
 
         public static List<string> comandos = new List<string>();
@@ -19,8 +20,8 @@ namespace Manejador_de_memoria_virtual__Simulador_
         public static Estrategia estrategia;
         public static int numSwaps = 0;
         public static int pageFaults = 0;
-        public static List<Proceso> procesos;
-        public static Queue<Proceso> filaProcesos; // Queue para FIFO
+        public static List<Proceso> procesos = new List<Proceso>();
+        public static Queue<int> filaProcesos = new Queue<int>(); // Queue para FIFO
 
     }
 }

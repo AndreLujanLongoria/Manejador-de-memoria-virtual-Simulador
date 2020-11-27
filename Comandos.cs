@@ -10,26 +10,36 @@ namespace Manejador_de_memoria_virtual__Simulador_
         /// <param name="p">Int con el numero de proceso</param>
         public static void procesarP(int n, int p)
         {
+            // Validacion
+            if(n <= 0) {
+                Console.WriteLine("El proceso #" + p + " no cabe en memoria.");
+                return;
+            }
+
+            // Desplegar comando
+            Console.WriteLine($"Asignar {n} bytes al proceso #{p}.");
+            
+            // Agregar nuevo proceso a la lista
+            Proceso nuevoProceso = new Proceso(p, n, 0, Globales.timestamp, -1);
+            Globales.procesos.Add(nuevoProceso);
+            
+            // FIFO
+            if(Globales.estrategia == Estrategia.FIFO) {
+                Globales.filaProcesos.Enqueue(p);
+            }
+
             // Dos escenarios: Hay espacio y no hay espacio en memoria
             double numPagNecesarias = n / Globales.TAM_PAGINA;
             numPagNecesarias = Math.Ceiling(numPagNecesarias);
 
             // Escenario 1: Hay espacio en memoria
-            if(Globales.memoria.paginasLibres >= numPagNecesarias) {
-                // Buscar espacios disponibles y asignarlos
-                foreach(Pagina pagina in Globales.memoria.memoriaReal) {
-                    if(numPagNecesarias <= 0) break; // Todas las paginas fueron asignadas
-                    
-                    // Si la pagina esta disponble, asignar
-                    if(pagina.idProceso != -1) {
-                        pagina.idProceso = p;
-                        numPagNecesarias--;
-                    }
-                }
+            if(Globales.memoria.GetPaginasLibres() >= numPagNecesarias) {
+                Globales.memoria.AsignarPaginas(nuevoProceso);
             }
             // Escenario 2: NO hay espacio en memoria
             else {
                 // TODO swapout
+                Globales.memoria.SwapOut(-1);
             }
 
         }
