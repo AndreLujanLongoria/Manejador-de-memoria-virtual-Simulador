@@ -104,7 +104,18 @@ namespace Manejador_de_memoria_virtual__Simulador_ {
                 } 
                 // LRU
                 else {
-                    
+
+                    if (!isProcessStillInMemory) {
+                        Globales.lruProcesos.Remove(idProcesoSwapOut);
+                    }
+                    double max = -1;
+                    foreach(KeyValuePair<int, double> time in Globales.lruProcesos) {
+                        if (time.Value >= max) {
+                            max = time.Value;
+                            idProcesoSwapOut = time.Key;
+                        }
+
+                    }
                     //idProcesoSwapOut = Globales.stackProcesos.Peek();
                 }
                 Proceso procesoSwapOut = Globales.procesos[idProcesoSwapOut]; // Obtener los datos del proceso

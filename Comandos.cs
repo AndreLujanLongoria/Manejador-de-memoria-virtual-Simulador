@@ -35,7 +35,7 @@ namespace Manejador_de_memoria_virtual__Simulador_
             } 
             // LRU
             else {
-                //Globales.stackProcesos.Push(p);
+                Globales.lruProcesos.Add(p, Globales.timestamp);
             }
 
             // Dos escenarios: Hay espacio y no hay espacio en memoria
@@ -98,6 +98,7 @@ namespace Manejador_de_memoria_virtual__Simulador_
             Console.WriteLine($"Turnaround Promedio: {turnaroundTotal / contadorProcesos}");
 
             // Desplegar Page Faults por Proceso
+            Console.WriteLine("Page Faults: ");
             foreach(KeyValuePair<int, Proceso> proceso in Globales.procesos) {
                 Console.WriteLine($"  P# {proceso.Key}: {proceso.Value.numPageFaults}");
             }
@@ -120,7 +121,7 @@ namespace Manejador_de_memoria_virtual__Simulador_
         /// </summary>
         public static void procesarE() 
         {
-
+            System.Environment.Exit(0); // Is this okay?
         }
 
     }
