@@ -64,7 +64,7 @@ namespace Manejador_de_memoria_virtual__Simulador_
                     // COMANDO TERMINAR - Se finaliza el programa
                     case 'E':
                         Console.WriteLine(comando);
-                        // ProcesarE
+                        System.Environment.Exit(0);
                         break;
                     
                     // EL COMANDO ES ERRONEO
