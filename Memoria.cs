@@ -173,7 +173,7 @@ namespace Manejador_de_memoria_virtual__Simulador_ {
             foreach(Pagina pagina in Globales.memoria.memoriaSwap) {                
                 // Si la pagina esta disponble, asignar
                 if (this.paginasLibresSwap <= 0) {
-                    Console.WriteLine("No hay espacio en memoriaSwap");
+                    Console.WriteLine("No hay espacio en memoria Swap");
                     break;
                 }
                 if(pagina.idProceso == -1) {
