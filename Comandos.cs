@@ -35,7 +35,7 @@ namespace Manejador_de_memoria_virtual__Simulador_
             } 
             // LRU
             else {
-                Globales.stackProcesos.Push(p);
+                //Globales.stackProcesos.Push(p);
             }
 
             // Dos escenarios: Hay espacio y no hay espacio en memoria
@@ -105,7 +105,14 @@ namespace Manejador_de_memoria_virtual__Simulador_
             // Desplegar número total de operaciones de swap-out y swap-in
             Console.WriteLine($" Número total de operaciones de swap-out y swap-in: {Globales.contadorSwaps}");
 
-
+            // Reiniciar variables
+            Globales.timestamp = 0.0;
+            Globales.memoria = new Memoria();
+            Globales.contadorSwaps = 0;
+            Globales.procesos = new Dictionary<int, Proceso>();
+            Globales.filaProcesos = new Queue<int>();
+            //Globales.stackProcesos = new Stack<int>();
+            
         }
 
         /// <summary>

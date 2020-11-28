@@ -89,56 +89,59 @@ namespace Manejador_de_memoria_virtual__Simulador_ {
             List<int> marcosAsignados = new List<int>();
             int posicionSwap = -1; // #pagina swap a la que se swappeo
             int bytesProceso = proceso.tam;
-
-            if (this.paginasLibres != 0) {
-                // Llenar las paginas aun disponibles en la memoria real
-                foreach(Pagina pagina in Globales.memoria.memoriaReal) {
-                    if(this.paginasLibres == 0) break; 
-
-                    // Si la pagina esta disponible, asignar
-                    if(pagina.idProceso == -1) {
-                        pagina.idProceso = proceso.id;
-                        numPaginasNecesarias--;
-                        this.paginasLibres--;
-                        marcosAsignados.Add(pagina.marco);
-                        if (bytesProceso >= 16) {
-                            pagina.bytesUsados = 16;
-                            bytesProceso = bytesProceso - 16;
-                        } else {
-                            pagina.bytesUsados = bytesProceso;
-                            bytesProceso = bytesProceso - bytesProceso;
-                        }
+            bool isProcessStillInMemory = true;
+            double paginasALiberar = numPaginasNecesarias - this.paginasLibres;
+            // Hacer swapout para las paginas que se necesiten
+            int idProcesoSwapOut = -1;
+            foreach(Pagina pagina in Globales.memoria.memoriaReal) {
+                if (paginasALiberar <= 0) break;
+                // FIFO
+                if(Globales.estrategia == Estrategia.FIFO) {
+                    if (!isProcessStillInMemory) {
+                        Globales.filaProcesos.Dequeue();
                     }
-    
+                    idProcesoSwapOut = Globales.filaProcesos.Peek();
+                } 
+                // LRU
+                else {
+                    
+                    //idProcesoSwapOut = Globales.stackProcesos.Peek();
                 }
-            } else {
-                // Hacer swapout para las paginas restantes
-                int idProcesoSwapOut = -1;
-                foreach(Pagina pagina in Globales.memoria.memoriaReal) {
-                    // FIFO
-                    if(Globales.estrategia == Estrategia.FIFO) {
-                        idProcesoSwapOut = Globales.filaProcesos.Peek();
-                    } 
-                    // LRU
-                    else {
-                        idProcesoSwapOut = Globales.stackProcesos.Peek();
+                Proceso procesoSwapOut = Globales.procesos[idProcesoSwapOut]; // Obtener los datos del proceso
+                if(pagina.idProceso == idProcesoSwapOut) {
+                    SwapOutProceso(procesoSwapOut, ref posicionSwap); // Enviar el proceso que se ingresara a la memoria swap
+                    pagina.idProceso = -1;
+                    this.paginasLibres++;
+                    paginasALiberar--;
+                    Console.WriteLine($"página #{pagina.marco} del proceso #{idProcesoSwapOut} swappeada al marco #{posicionSwap} del área de swapping");
+                }
+                foreach(Pagina pag in Globales.memoria.memoriaReal) {
+                    if(pag.idProceso == idProcesoSwapOut) {
+                        isProcessStillInMemory = true;
+                        break;
+                    } else {
+                        isProcessStillInMemory = false;
                     }
-                    Proceso procesoSwapOut = Globales.procesos[idProcesoSwapOut]; // Obtener los datos del proceso
-                    if (numPaginasNecesarias <= 0) break;
-                    if(pagina.idProceso == idProcesoSwapOut) {
-                        SwapOutProceso(procesoSwapOut, ref posicionSwap); // Enviar el proceso que se ingresara a la memoria swap
-                        pagina.idProceso = proceso.id;
-                        numPaginasNecesarias--;
-                        marcosAsignados.Add(pagina.marco);
-                        if (bytesProceso >= 16) {
-                            pagina.bytesUsados = 16;
-                            bytesProceso = bytesProceso - 16;
-                        } else {
-                            pagina.bytesUsados = bytesProceso;
-                            bytesProceso = bytesProceso - bytesProceso;
-                        }
-                        Console.WriteLine($"página #{pagina.marco} del proceso #{idProcesoSwapOut} swappeada al marco #{posicionSwap} del área de swapping");
-                    }
+                }
+            }
+
+            // Llenar las paginas disponibles en la memoria real
+            foreach(Pagina pagina in Globales.memoria.memoriaReal) {
+                if(numPaginasNecesarias <= 0) break; 
+
+                // Si la pagina esta disponible, asignar
+                if(pagina.idProceso == -1) {
+                    pagina.idProceso = proceso.id;
+                    numPaginasNecesarias--;
+                    this.paginasLibres--;
+                    marcosAsignados.Add(pagina.marco);
+                    if (bytesProceso >= 16) {
+                        pagina.bytesUsados = 16;
+                        bytesProceso = bytesProceso - 16;
+                    } else {
+                        pagina.bytesUsados = bytesProceso;
+                        bytesProceso = bytesProceso - bytesProceso;
+                    }    
                 }
             }
             // Modificar contador de swaps

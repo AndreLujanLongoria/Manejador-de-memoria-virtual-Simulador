@@ -18,13 +18,13 @@ namespace Manejador_de_memoria_virtual__Simulador_
         public static Memoria memoria = new Memoria();
         public static double timestamp = 0.0;
         public static Estrategia estrategia;
-        public static int numSwaps = 0;
-        public static int pageFaults = 0;
         public static Dictionary<int, Proceso> procesos = new Dictionary<int, Proceso>();
         public static Queue<int> filaProcesos = new Queue<int>(); // Queue para FIFO
-        public static Stack<int> stackProcesos = new Stack<int>(); // Stack para LRU (LIFO)
-
+        //public static Stack<int> stackProcesos = new Stack<int>(); // Stack para LRU (LIFO)
+        
+        public static int topKey = 0;
         public static int contadorSwaps = 0;
+        
 
     }
 }
