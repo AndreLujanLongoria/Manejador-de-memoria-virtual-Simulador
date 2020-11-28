@@ -37,6 +37,7 @@ namespace Manejador_de_memoria_virtual__Simulador_
 
                     // COMANDO ACCEDER - Acceder o modificar un proceso en memoria
                     case 'A':
+
                         // elementos = comando.Split();
                         // Console.WriteLine(elementos[0] + ' ' + elementos[1] + ' ' + elementos[2] + elementos[3]);
                         // Comandos.procesarA(int.Parse(elementos[1]), int.Parse(elementos[2]), int.Parse(elementos[3]));
@@ -64,6 +65,7 @@ namespace Manejador_de_memoria_virtual__Simulador_
                     // COMANDO TERMINAR - Se finaliza el programa
                     case 'E':
                         Console.WriteLine(comando);
+                        Console.WriteLine("Programa terminada ---Adios---");
                         System.Environment.Exit(0);
                         break;
                     
