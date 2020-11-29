@@ -4,11 +4,11 @@ using System.IO;
 namespace Manejador_de_memoria_virtual__Simulador_
 {
     class Program
-    {        
+    {
         static void Main(string[] args)
         {
             // Si se obtuvo los comandos correctamente del archivo, procesarlos
-            if(obtenerComandos()) 
+            if (obtenerComandos())
             {
                 procesar(Estrategia.FIFO);
                 //procesar(Estrategia.LRU);
@@ -24,9 +24,9 @@ namespace Manejador_de_memoria_virtual__Simulador_
             int numProceso = 1;
             // Proceso princial que ejecuta comando por comando
             string[] elementos;
-            foreach(string comando in Globales.comandos)
+            foreach (string comando in Globales.comandos)
             {
-                switch(comando[0])
+                switch (comando[0])
                 {
                     // COMANDO PROCESAR - Cargar a memoria un proceso
                     case 'P':
@@ -51,7 +51,7 @@ namespace Manejador_de_memoria_virtual__Simulador_
                         break;
 
                     // COMANDO COMENTARIO - Solo se despliega el comentario
-                    case 'C':                        
+                    case 'C':
                         Console.WriteLine(comando);
                         break;
 
@@ -68,7 +68,7 @@ namespace Manejador_de_memoria_virtual__Simulador_
                         Console.WriteLine("Programa terminada ---Adios---");
                         System.Environment.Exit(0);
                         break;
-                    
+
                     // EL COMANDO ES ERRONEO
                     default:
                         // Error: commando no reconocible
