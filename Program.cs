@@ -37,10 +37,9 @@ namespace Manejador_de_memoria_virtual__Simulador_
 
                     // COMANDO ACCEDER - Acceder o modificar un proceso en memoria
                     case 'A':
-
-                        // elementos = comando.Split();
-                        // Console.WriteLine(elementos[0] + ' ' + elementos[1] + ' ' + elementos[2] + elementos[3]);
-                        // Comandos.procesarA(int.Parse(elementos[1]), int.Parse(elementos[2]), int.Parse(elementos[3]));
+                        elementos = comando.Split();
+                        Console.WriteLine(elementos[0] + ' ' + elementos[1] + ' ' + elementos[2] + elementos[3]);
+                        Comandos.procesarA(int.Parse(elementos[1]), int.Parse(elementos[2]), int.Parse(elementos[3]));
                         break;
 
                     // COMANDO LIBERAR - Liberar un proceso en memoria
@@ -108,7 +107,7 @@ namespace Manejador_de_memoria_virtual__Simulador_
                 return true;
             }
             catch // Error cargando archivo
-            {
+            {   
                 Console.WriteLine("ERROR: El archivo esta vacio o no existe.");
                 return false;
             }

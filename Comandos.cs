@@ -61,7 +61,7 @@ namespace Manejador_de_memoria_virtual__Simulador_
         /// <param name="m">Int con indicador de acceso (0 = Accesar, 1 = Modificar)</param>
         public static void procesarA(int d, int p, int m)
         {
-
+            
         }
 
         /// <summary>
@@ -114,14 +114,6 @@ namespace Manejador_de_memoria_virtual__Simulador_
             Globales.filaProcesos = new Queue<int>();
             //Globales.stackProcesos = new Stack<int>();
             
-        }
-
-        /// <summary>
-        /// Funcion para procesar el comando E (Terminar)
-        /// </summary>
-        public static void procesarE() 
-        {
-            System.Environment.Exit(0); // Is this okay?
         }
 
     }
