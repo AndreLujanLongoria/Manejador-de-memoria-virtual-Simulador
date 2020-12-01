@@ -157,7 +157,7 @@ namespace Manejador_de_memoria_virtual__Simulador_
             Globales.contadorSwaps = 0;
             Globales.procesos = new Dictionary<int, Proceso>();
             Globales.filaProcesos = new Queue<int>();
-            //Globales.stackProcesos = new Stack<int>();
+            Globales.lruProcesos = new SortedList<int, double>();
             
         }
 

@@ -12,14 +12,17 @@ namespace Manejador_de_memoria_virtual__Simulador_
             if (obtenerComandos())
             {
                 procesar(Estrategia.FIFO);
-                //procesar(Estrategia.LRU);
+                procesar(Estrategia.LRU);
+                Console.WriteLine("[+] ------ [Programa terminado] ------ [+]");
             }
-
+            Console.WriteLine("Presione ENTER para salir del programa... ");
             Console.Read(); //Espera a que apretemos una tecla -----Para que el resultado salga claro----
         }
 
         static void procesar(Estrategia estra)
         {
+            string estraNombre = estra == Estrategia.FIFO ? "FIFO" : "LRU";
+            Console.WriteLine($"[+] ------ [ Estrategia: {estraNombre}] ------ [+]");
             Globales.estrategia = estra;
 
             int numProceso = 1;
@@ -66,8 +69,7 @@ namespace Manejador_de_memoria_virtual__Simulador_
                     // COMANDO TERMINAR - Se finaliza el programa
                     case 'E':
                         Console.WriteLine(comando);
-                        Console.WriteLine("Programa terminada ---Adios---");
-                        System.Environment.Exit(0);
+                        Console.WriteLine("\n");
                         break;
 
                     // EL COMANDO ES ERRONEO

@@ -297,6 +297,7 @@ namespace Manejador_de_memoria_virtual__Simulador_ {
             foreach(Pagina pagina in memoriaSwap) {
                 if(pagina.idProceso == -1) {
                     idPaginaLibre = pagina.marco;
+                    break;
                 }
             }
             
@@ -308,7 +309,7 @@ namespace Manejador_de_memoria_virtual__Simulador_ {
                     paginaSwap.idProceso = pagina.idProceso;
                     paginaSwap.num = pagina.num;
                     paginaSwap.bytesUsados = pagina.bytesUsados;
-                    Console.WriteLine($"Página #{pagina.marco} del proceso #{pagina.idProceso} swappeada al marco #{idPaginaLibre} del área de swapping");
+                    Console.WriteLine($"Página #{pagina.num} del proceso #{pagina.idProceso} swappeada al marco #{idPaginaLibre} del área de swapping");
                     
                     // Actualizar indices de memoria
                     paginasLibresSwap--;
@@ -318,6 +319,7 @@ namespace Manejador_de_memoria_virtual__Simulador_ {
                     pagina.idProceso = -1;
                     pagina.num = -1;
                     pagina.bytesUsados = 0;
+                    break;
                 }
             }
 
@@ -347,6 +349,7 @@ namespace Manejador_de_memoria_virtual__Simulador_ {
                 if(pagina.idProceso == p && pagina.num == indicePaginaDelProceso) {
                     idPaginaSwap = pagina.marco;
                     Console.WriteLine($"Se localizó la página #{indicePaginaDelProceso} del proceso #{p} que estaba en la posición #{pagina.marco} de swapping");
+                    break;
                 }
             }
 
@@ -359,6 +362,7 @@ namespace Manejador_de_memoria_virtual__Simulador_ {
                     Console.WriteLine($"y se cargo al marco #{pagina.marco}");
                     // Actualizar paginas libres
                     paginasLibres--;
+                    break;
                 }
             }
 
