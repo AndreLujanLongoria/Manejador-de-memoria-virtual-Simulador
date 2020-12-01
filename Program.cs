@@ -86,15 +86,17 @@ namespace Manejador_de_memoria_virtual__Simulador_
         {
             try
             {
-                // TODO al finalizar el programa
+                // TODO OPCION B
                 // Obtener el archivo txt en base al folder relativo donde se ejecuto el programa
                 // Utilizar al final cuando se tenga que obtener archivo txt relativo al exe
                 //Console.WriteLine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase));
 
                 // Obtener lista de comandos del archivo txt
                 StreamReader archivo = new StreamReader(@"c:/../ArchivoTrabajo.txt");
-                //StreamReader archivo = new StreamReader(Directory.GetCurrentDirectory() + "/ArchivoTrabajo.txt");
-
+                // string nombreArchivo;
+                // Console.Write("Nombre del Archivo: ");
+                // nombreArchivo = Console.ReadLine();
+                // StreamReader archivo = new StreamReader(@"c:/../" + nombreArchivo);
                 // Verificar que el archivo no esta vacio
                 if (archivo.Peek() == -1)
                 {
@@ -113,6 +115,7 @@ namespace Manejador_de_memoria_virtual__Simulador_
             catch // Error cargando archivo
             {   
                 Console.WriteLine("ERROR: El archivo esta vacio o no existe.");
+                Console.WriteLine("\t- El archivo deberia estar en: " + Directory.GetCurrentDirectory());
                 return false;
             }
         }
