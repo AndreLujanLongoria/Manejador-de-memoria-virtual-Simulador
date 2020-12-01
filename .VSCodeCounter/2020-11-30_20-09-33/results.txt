@@ -1,0 +1,34 @@
+Date : 2020-11-30 20:09:33
+Directory : /Users/isabellacanalesb/Desktop/Manejador-de-memoria-virtual-Simulador
+Total : 8 files,  586 codes, 109 comments, 114 blanks, all 809 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| C#       |          6 |        568 |        109 |        108 |        785 |
+| XML      |          1 |         10 |          0 |          3 |         13 |
+| Markdown |          1 |          8 |          0 |          3 |         11 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                   | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                      |          8 |        586 |        109 |        114 |        809 |
++------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                                               | language | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| /Users/isabellacanalesb/Desktop/Manejador-de-memoria-virtual-Simulador/Comandos.cs                                     | C#       |         98 |         43 |         25 |        166 |
+| /Users/isabellacanalesb/Desktop/Manejador-de-memoria-virtual-Simulador/Globales.cs                                     | C#       |         23 |          1 |          7 |         31 |
+| /Users/isabellacanalesb/Desktop/Manejador-de-memoria-virtual-Simulador/Manejador de memoria virtual (Simulador).csproj | XML      |         10 |          0 |          3 |         13 |
+| /Users/isabellacanalesb/Desktop/Manejador-de-memoria-virtual-Simulador/Memoria.cs                                      | C#       |        313 |         45 |         56 |        414 |
+| /Users/isabellacanalesb/Desktop/Manejador-de-memoria-virtual-Simulador/Pagina.cs                                       | C#       |         16 |          0 |          1 |         17 |
+| /Users/isabellacanalesb/Desktop/Manejador-de-memoria-virtual-Simulador/Proceso.cs                                      | C#       |         16 |          0 |          2 |         18 |
+| /Users/isabellacanalesb/Desktop/Manejador-de-memoria-virtual-Simulador/Program.cs                                      | C#       |        102 |         20 |         17 |        139 |
+| /Users/isabellacanalesb/Desktop/Manejador-de-memoria-virtual-Simulador/README.md                                       | Markdown |          8 |          0 |          3 |         11 |
+| Total                                                                                                                  |          |        586 |        109 |        114 |        809 |
++------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

@@ -1,4 +1,15 @@
-﻿using System;
+﻿// Nombre del Programa: Simulador de Manejador de Memoria Virtual 
+// Autores:
+// // Rodrigo Bilbao Arriet A01194189
+// // Isabella Canales Backhoff A01194195
+// // Andre Lujan A01540245
+// // Gerardo Peart A01194337
+// Descripcion: El programa sirve como un simulador a un manejador de memoria virtual con estrategias de reemplazo FIFO (First In First Out) y LRU (Least Recently Used) con memoria real y memoria de swapping.
+
+
+
+
+using System;
 using System.IO;
 using System.Collections.Generic;
 

@@ -86,15 +86,15 @@ namespace Manejador_de_memoria_virtual__Simulador_
             // Proceso se encuentra en memoriaSwap
             if(Globales.memoria.isProcesoEnMemoriaReal(d, p) == -1) {
                 // Checar si hay espacio 
-                if(Globales.memoria.paginasLibres > 0) {
+                if(Globales.memoria.paginasLibres <= 0) {
                     // Librar una pagina en memoriaReal y hacer SwapIn
+                    Globales.procesos[p].numPageFaults++;
                     Globales.memoria.swapUnaPagina();
                 }
                 Globales.memoria.swapIn(p, indicePaginaDelProceso);
 
                 // Actualizar metricas
                 Globales.lruProcesos[p] = Globales.timestamp;
-                Globales.procesos[p].numPageFaults++;
             }
 
             // Desplegar resultados
@@ -153,7 +153,8 @@ namespace Manejador_de_memoria_virtual__Simulador_
 
             // Desplegar número total de operaciones de swap-out y swap-in
             Console.WriteLine($" Número total de operaciones de swap-out y swap-in: {Globales.contadorSwaps}");
-
+            Console.WriteLine($" Timestamp: {Globales.timestamp}");
+            
             // Reiniciar variables
             Globales.timestamp = 0.0;
             Globales.memoria = new Memoria();
@@ -161,6 +162,9 @@ namespace Manejador_de_memoria_virtual__Simulador_
             Globales.procesos = new Dictionary<int, Proceso>();
             Globales.filaProcesos = new Queue<int>();
             Globales.lruProcesos = new SortedList<int, double>();
+            contadorProcesos = 0;
+            turnaroundTotal = 0.0;
+            tiempo = 0.0;
         }
     }
 }

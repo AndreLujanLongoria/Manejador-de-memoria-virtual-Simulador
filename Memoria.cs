@@ -164,7 +164,7 @@ namespace Manejador_de_memoria_virtual__Simulador_ {
                     // Marcar el subindice del pedazo del proceso que se asigno a la pagina
                     pagina.num = indiceDeProceso;
                     indiceDeProceso++;
-
+                    Globales.procesos[proceso.id].numPageFaults++;
                     pagina.idProceso = proceso.id;
                     numPaginasNecesarias--;
                     this.paginasLibres--;
@@ -218,6 +218,22 @@ namespace Manejador_de_memoria_virtual__Simulador_ {
             numPagNecesarias = Math.Ceiling(numPagNecesarias);
             List<int> marcosLiberadosReal = new List<int>();
             List<int> marcosLiberadosSwap = new List<int>();
+
+            // FIFO
+            if(Globales.estrategia == Estrategia.FIFO) {
+                Queue<int> aux = new Queue<int>(); // Queue para FIFO
+                while (Globales.filaProcesos.Count != 0) {
+                    if(Globales.filaProcesos.Peek() != proceso.id) {
+                        aux.Enqueue(Globales.filaProcesos.Peek());
+                    }
+                    Globales.filaProcesos.Dequeue();
+                }
+                Globales.filaProcesos = aux;
+            } 
+            // LRU
+            else {
+                Globales.lruProcesos.Remove(proceso.id);
+            }
 
             foreach(Pagina pagina in Globales.memoria.memoriaReal) {
                 if(numPagNecesarias <= 0) break;
@@ -290,6 +306,7 @@ namespace Manejador_de_memoria_virtual__Simulador_ {
                 }
             }
 
+
             // Identificar pagina libre en memoria Swap
             int idPaginaLibre = -1;
             foreach(Pagina pagina in memoriaSwap) {
@@ -298,6 +315,8 @@ namespace Manejador_de_memoria_virtual__Simulador_ {
                     break;
                 }
             }
+            // Modificar contador de swaps
+            Globales.contadorSwaps++;
             
             // Mandar la pagina identificada al area de swap
             foreach(Pagina pagina in memoriaReal) {
@@ -313,6 +332,7 @@ namespace Manejador_de_memoria_virtual__Simulador_ {
                     paginasLibresSwap--;
                     paginasLibres++;
 
+
                     // Liberar pagina
                     pagina.idProceso = -1;
                     pagina.num = -1;
@@ -321,21 +341,33 @@ namespace Manejador_de_memoria_virtual__Simulador_ {
                 }
             }
 
-            // Si se uso FIFO, verificar que quedan procesos (Sino sacarlo de la fila)
-            if(Globales.estrategia == Estrategia.FIFO) {
-                Boolean quedanProcesos = false;
-
-                foreach(Pagina pagina in memoriaReal) {
-                    if(pagina.idProceso == idProcesoSacar) {
-                        quedanProcesos = true;
-                        break;
-                    }
-                }
-
-                if(!quedanProcesos) {
-                    Globales.filaProcesos.Dequeue();
+            // verificar que quedan procesos (Sino sacarlo de la fila)
+            Boolean quedanProcesos = false;
+            foreach(Pagina pagina in memoriaReal) {
+                if(pagina.idProceso == idProcesoSacar) {
+                    quedanProcesos = true;
+                    break;
                 }
             }
+
+            if(!quedanProcesos) {
+                 // FIFO
+                if(Globales.estrategia == Estrategia.FIFO) {
+                    Queue<int> aux = new Queue<int>(); // Queue para FIFO
+                    while (Globales.filaProcesos.Count != 0) {
+                        if(Globales.filaProcesos.Peek() != idProcesoSacar) {
+                            aux.Enqueue(Globales.filaProcesos.Peek());
+                        }
+                        Globales.filaProcesos.Dequeue();
+                    } 
+                    Globales.filaProcesos = aux;
+                } 
+                // LRU
+                else {
+                    Globales.lruProcesos.Remove(idProcesoSacar);
+                }
+            }
+                    
 
             Globales.timestamp += 0.1;
         }
@@ -370,18 +402,26 @@ namespace Manejador_de_memoria_virtual__Simulador_ {
             memoriaSwap[idPaginaSwap].bytesUsados = 0;
             paginasLibresSwap++;
 
-            // Checar fila FIFO si el programa metido es el primero (no existe otra pagina de ese proceso en memoriaReal)
+            // Checar si el programa metido es el primero (no existe otra pagina de ese proceso en memoriaReal)
             // Volver a meter a fila de procesos
-            if(Globales.estrategia == Estrategia.FIFO) {
-                int ctr = 0;
-                foreach(Pagina pagina in memoriaReal) {
-                    if(pagina.idProceso == p) {
-                        ctr++;
-                    }
-
-                    if(ctr > 1) Globales.filaProcesos.Enqueue(p);
+            int ctr = 0;
+            foreach(Pagina pagina in memoriaReal) {
+                if(pagina.idProceso == p) {
+                    ctr++;
                 }
+
             }
+            if(ctr > 1) {
+
+                     // FIFO
+                    if(Globales.estrategia == Estrategia.FIFO) {
+                        Globales.filaProcesos.Enqueue(p);
+                    } 
+                    // LRU
+                    else {
+                        //Globales.lruProcesos.Add(p, Globales.timestamp);
+                    }
+                }
 
             Globales.timestamp += 1;
 
