@@ -21,6 +21,7 @@ namespace Manejador_de_memoria_virtual__Simulador_
 
         static void procesar(Estrategia estra)
         {
+            bool termino = false;
             string estraNombre = estra == Estrategia.FIFO ? "FIFO" : "LRU";
             Console.WriteLine($"[+] ------ [ Estrategia: {estraNombre}] ------ [+]");
             Globales.estrategia = estra;
@@ -30,6 +31,8 @@ namespace Manejador_de_memoria_virtual__Simulador_
             string[] elementos;
             foreach (string comando in Globales.comandos)
             {
+                if(termino) break;
+
                 switch (comando[0])
                 {
                     // COMANDO PROCESAR - Cargar a memoria un proceso
@@ -70,6 +73,7 @@ namespace Manejador_de_memoria_virtual__Simulador_
                     case 'E':
                         Console.WriteLine(comando);
                         Console.WriteLine("\n");
+                        termino = true;
                         break;
 
                     // EL COMANDO ES ERRONEO
