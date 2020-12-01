@@ -285,6 +285,7 @@ namespace Manejador_de_memoria_virtual__Simulador_ {
                 if (arregloMarcos != "") {
                     Console.WriteLine($"Se liberan los marcos del área de swapping: [{arregloMarcos.Remove(arregloMarcos.Length - 1)}]");
                 }
+                Globales.procesos[proceso.id].tiempoFinal = Globales.timestamp;
             }   
         }
 

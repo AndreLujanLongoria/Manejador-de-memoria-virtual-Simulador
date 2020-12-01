@@ -136,7 +136,7 @@ namespace Manejador_de_memoria_virtual__Simulador_
             // Desplegar Turnaround Time por Proceso
             Console.WriteLine("Turnaround Time: ");
             foreach(KeyValuePair<int, Proceso> proceso in Globales.procesos) {
-                tiempo = proceso.Value.tiempoInicio - proceso.Value.tiempoFinal;
+                tiempo = proceso.Value.tiempoFinal - proceso.Value.tiempoInicio;
                 Console.WriteLine($"  P# {proceso.Key}: {tiempo}");
                 turnaroundTotal += tiempo;
                 contadorProcesos++;
