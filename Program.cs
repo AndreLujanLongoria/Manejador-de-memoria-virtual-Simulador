@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Collections.Generic;
 
 namespace Manejador_de_memoria_virtual__Simulador_
 {
@@ -38,7 +39,8 @@ namespace Manejador_de_memoria_virtual__Simulador_
                     // COMANDO ACCEDER - Acceder o modificar un proceso en memoria
                     case 'A':
                         elementos = comando.Split();
-                        Console.WriteLine(elementos[0] + ' ' + elementos[1] + ' ' + elementos[2] + elementos[3]);
+                        elementos = verificarEliminacionEspacios(elementos);
+                        Console.WriteLine(elementos[0] + ' ' + elementos[1] + ' ' + elementos[2] + ' ' + elementos[3]);
                         Comandos.procesarA(int.Parse(elementos[1]), int.Parse(elementos[2]), int.Parse(elementos[3]));
                         break;
 
@@ -111,6 +113,17 @@ namespace Manejador_de_memoria_virtual__Simulador_
                 Console.WriteLine("ERROR: El archivo esta vacio o no existe.");
                 return false;
             }
+        }
+
+        public static string[] verificarEliminacionEspacios(string[] arreglo) {
+            List<string> nuevoArreglo = new List<string>();
+            foreach(string s in arreglo) {
+                if(s != "") {
+                    nuevoArreglo.Add(s);
+                }
+            }
+
+            return nuevoArreglo.ToArray();
         }
     }
 }

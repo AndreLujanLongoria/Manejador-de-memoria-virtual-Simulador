@@ -39,7 +39,7 @@ namespace Manejador_de_memoria_virtual__Simulador_
             }
 
             // Dos escenarios: Hay espacio y no hay espacio en memoria
-            double numPagNecesarias = n / Globales.TAM_PAGINA;
+            double numPagNecesarias = (double)n / Globales.TAM_PAGINA;
             numPagNecesarias = Math.Ceiling(numPagNecesarias);
 
             // Escenario 1: Hay espacio en memoria
@@ -61,7 +61,52 @@ namespace Manejador_de_memoria_virtual__Simulador_
         /// <param name="m">Int con indicador de acceso (0 = Accesar, 1 = Modificar)</param>
         public static void procesarA(int d, int p, int m)
         {
+            // Verificaciones
+            // Checar que el proceso este en memoria
+            if(!Globales.procesos.ContainsKey(p)) {
+                Console.WriteLine($"ERROR: El proceso #{p} no existe.");
+                return;
+            }
+            // Checar que el proceso no se haya liberado
+            else if(Globales.procesos[p].tiempoFinal != -1) {
+                Console.WriteLine($"ERROR: El proceso #{p} ya se libero y no esta en memoria.");
+                return;
+            }
+
+            // Checar que d (direccion virtual) sea valido (no mayor al tam del proceso)
+            else if(Globales.procesos[p].tam <  d){
+                Console.WriteLine($"ERROR: Comando no es valido: Direccion virtual {d} no existe.");
+                return;
+            }
             
+            // Desplegar Formato especificado
+            Console.WriteLine($"Obtener la dirección real correspondiente a la dirección virtual {d} del proceso {p}");
+
+            int indicePaginaDelProceso = d / 16;
+            // Proceso se encuentra en memoriaSwap
+            if(Globales.memoria.isProcesoEnMemoriaReal(d, p) == -1) {
+                // Librar una pagina en memoriaReal y hacer SwapIn
+                Globales.memoria.swapUnaPagina();
+                Globales.memoria.swapIn(p, indicePaginaDelProceso);
+
+                // Actualizar metricas
+                Globales.lruProcesos[p] = Globales.timestamp;
+                Globales.procesos[p].numPageFaults++;
+            }
+
+            // Desplegar resultados
+            Globales.timestamp += 0.1; // Accesar o modificar toma 0.1 segundos
+            
+            // Se va a modificar la direccion de memoria
+            if(m == 1) {
+                Console.WriteLine($"Página #{indicePaginaDelProceso} del proceso #{p} modificada.");
+            }
+
+            // Desplegar direcciones de memoria virtual y real
+            int dirReal = Globales.memoria.GetDirReal(d, p);
+            Console.WriteLine($"Dirección virtual: {d}. Dirección real: {dirReal}");
+
+
         }
 
         /// <summary>
