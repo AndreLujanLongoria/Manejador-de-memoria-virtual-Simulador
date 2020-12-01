@@ -128,15 +128,13 @@ namespace Manejador_de_memoria_virtual__Simulador_ {
                     if (!isProcessStillInMemory) {
                         Globales.lruProcesos.Remove(idProcesoSwapOut);
                     }
-                    double max = -1;
+                    double min = 10000;
                     foreach(KeyValuePair<int, double> time in Globales.lruProcesos) {
-                        if (time.Value >= max) {
-                            max = time.Value;
+                        if (time.Value <= min) {
+                            min = time.Value;
                             idProcesoSwapOut = time.Key;
                         }
-
                     }
-                    //idProcesoSwapOut = Globales.stackProcesos.Peek();
                 }
                 Proceso procesoSwapOut = Globales.procesos[idProcesoSwapOut]; // Obtener los datos del proceso
                 if(pagina.idProceso == idProcesoSwapOut) {

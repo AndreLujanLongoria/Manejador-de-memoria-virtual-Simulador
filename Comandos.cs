@@ -85,8 +85,11 @@ namespace Manejador_de_memoria_virtual__Simulador_
             int indicePaginaDelProceso = d / 16;
             // Proceso se encuentra en memoriaSwap
             if(Globales.memoria.isProcesoEnMemoriaReal(d, p) == -1) {
-                // Librar una pagina en memoriaReal y hacer SwapIn
-                Globales.memoria.swapUnaPagina();
+                // Checar si hay espacio 
+                if(Globales.memoria.paginasLibres > 0) {
+                    // Librar una pagina en memoriaReal y hacer SwapIn
+                    Globales.memoria.swapUnaPagina();
+                }
                 Globales.memoria.swapIn(p, indicePaginaDelProceso);
 
                 // Actualizar metricas
@@ -158,8 +161,6 @@ namespace Manejador_de_memoria_virtual__Simulador_
             Globales.procesos = new Dictionary<int, Proceso>();
             Globales.filaProcesos = new Queue<int>();
             Globales.lruProcesos = new SortedList<int, double>();
-            
         }
-
     }
 }
